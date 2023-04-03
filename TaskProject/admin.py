@@ -1,3 +1,8 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 
-# Register your models here.
+from TaskProject.models import Tag, Task
+
+admin.site.register(Tag)
+
+admin.site.register(Task)

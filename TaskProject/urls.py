@@ -7,8 +7,9 @@ from TaskProject.views import (TaskListView,
                                TaskUpdateView,
                                TagUpdateView,
                                TaskDeleteView,
-                               TagDeleteView
-                                )
+                               TagDeleteView,
+                               TaskChangeStatusView
+                               )
 
 urlpatterns = [
     path("", TaskListView.as_view(), name="task-list"),
@@ -19,6 +20,7 @@ urlpatterns = [
     path("tags/create", TagCreateView.as_view(), name="tag-create"),
     path("tags/<int:pk>/update", TagUpdateView.as_view(), name="tag-update"),
     path("tags/<int:pk>/delete", TagDeleteView.as_view(), name="tag-delete"),
+    path("change_status/<int:pk>", TaskChangeStatusView.as_view(), name='task_change_status'),
     ]
 
 app_name = "TaskProject"

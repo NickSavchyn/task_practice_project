@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic, View
 
@@ -32,7 +32,7 @@ class TaskDeleteView(generic.DeleteView):
     model = Task
     fields = "__all__"
     template_name = "TaskProject/task_confirm_delete.html"
-    success_url = reverse_lazy("todo:task-list")
+    success_url = reverse_lazy("TaskProject:task-list")
 
 
 class TagListView(generic.ListView):
@@ -46,18 +46,30 @@ class TagCreateView(generic.CreateView):
     model = Tag
     form_class = TagForm
     template_name = "TaskProject/tag_form.html"
-    success_url = "http://127.0.0.1:8000/tags/create"
+    success_url = reverse_lazy("TaskProject:tag-list")
 
 
 class TagUpdateView(generic.UpdateView):
     model = Tag
     form_class = TagForm
     template_name = "TaskProject/tag_form.html"
-    success_url = reverse_lazy("todo:tag-list")
+    success_url = reverse_lazy("TaskProject:tag-list")
 
 
 class TagDeleteView(generic.DeleteView):
     model = Tag
     fields = "__all__"
     template_name = "TaskProject/tag_confirm_delete.html"
-    success_url = reverse_lazy("todo:tag-list")
+    success_url = reverse_lazy("TaskProject:tag-list")
+
+
+class TaskChangeStatusView(View):
+    def post(self, request, pk):
+        task = Task.objects.get(id=pk)
+        task.is_done = not task.is_done
+        task.save()
+
+        return redirect(reverse_lazy('TaskProject:task-list'), permanent=True)
+
+    def get(self, request):
+        return redirect(reverse_lazy('TaskProject:task-list'), permanent=True)

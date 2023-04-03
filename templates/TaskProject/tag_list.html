@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Tags</h1>
+      <button class="btn btn-primary float-end me-3 mb-3">
+        <a role="button" class="text-white" href="#">
+          Add
+        </a>
+      </button>
+
+
+    {% if tag_list %}
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            {% for tag in tag_list %}
+                <tr>
+                    <td>{{ tag.name }}</td>
+                    <td>
+                      <button class="btn btn-secondary">
+                        <a role="button" class="text-white" href="#">
+                          Update
+                        </a>
+                      </button>
+                    </td>
+                    <td>
+                      <button class="btn btn-danger">
+                        <a role="button" class="text-white" href="#">
+                          Delete
+                        </a>
+                      </button>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+        <p>There are no tasks for now!</p>
+    {% endif %}
+
+{% endblock %}
